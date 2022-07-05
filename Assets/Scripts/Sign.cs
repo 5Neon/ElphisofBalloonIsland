@@ -10,7 +10,7 @@ public class Sign : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Debug.Log("충돌 감지");
+            // Debug.Log("충돌 감지");
             dialoguemanager.GetComponent<DialogueManager>().Event_1_Sing();
         }
     }
@@ -19,7 +19,7 @@ public class Sign : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Debug.Log("충돌 감지 해제");
+            // Debug.Log("충돌 감지 해제");
             dialoguemanager.GetComponent<DialogueManager>().Event_1_Sing_Out();
         }
     }

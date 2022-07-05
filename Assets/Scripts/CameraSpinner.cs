@@ -12,6 +12,7 @@ public class CameraSpinner : MonoBehaviour
     void Update()
     {
         transform.position = target.position;
+
         Vector3 PlayerPosition = Player.transform.position;
 
         if (Input.GetKeyDown(KeyCode.A))

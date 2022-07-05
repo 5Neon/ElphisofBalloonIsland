@@ -14,15 +14,15 @@ public class MenuManager : MonoBehaviour
             //메뉴 false
             if (menu.activeSelf)
             {
+                // Debug.Log("시간 활성화");
                 Time.timeScale = 1.0f;
-                Debug.Log("시간 활성화");
                 menu.SetActive(false);
             }
             //메뉴 true
             else
             {
+                // Debug.Log("시간 비활성화");
                 Time.timeScale = 0f;
-                Debug.Log("시간 비활성화");
                 menu.SetActive(true);
             }
         }
@@ -30,8 +30,8 @@ public class MenuManager : MonoBehaviour
 
     public void Restart()
     {
-        //게임 시간 활성화
-        Debug.Log("시간 활성화");
+        // 게임 시간 활성화
+        // Debug.Log("시간 활성화");
         Time.timeScale = 1.0f;
     }
 
@@ -47,7 +47,7 @@ public class MenuManager : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
 #else
         Application.Quit();   
-        Debug.Log("게임 종료");
+        // Debug.Log("게임 종료");
 #endif
     }
 }
