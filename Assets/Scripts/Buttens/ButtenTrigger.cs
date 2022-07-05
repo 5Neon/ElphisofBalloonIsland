@@ -34,7 +34,7 @@ public class ButtenTrigger : MonoBehaviour
 
             if (temp > 0.2f)
             {
-                dialoguemanager.GetComponent<DialogueManager>().Wrong_Butten();
+                dialoguemanager.GetComponent<DialogueManager>().Wrong_Button();
                 Buttens = false;
             }
         }

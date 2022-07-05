@@ -165,11 +165,11 @@ public class DialogueManager : MonoBehaviour
 
             Text_Ui.SetActive(true);
 
-            StartCoroutine(worng_Button());
+            StartCoroutine(wrong_Button());
         }
     }
 
-    IEnumerator worng_Button()
+    IEnumerator wrong_Button()
     {
         List<Dictionary<string, object>> data_Dialog = CSVReader.Read("Dialog");
 

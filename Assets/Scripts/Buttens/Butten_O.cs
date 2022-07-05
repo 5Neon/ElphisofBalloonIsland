@@ -36,7 +36,7 @@ public class Butten_O : MonoBehaviour
 
             if (temp > 0.2f)
             {
-                dialoguemanager.GetComponent<DialogueManager>().Right_Butten();
+                dialoguemanager.GetComponent<DialogueManager>().Right_Button();
                 Buttens = false;
             }
         }

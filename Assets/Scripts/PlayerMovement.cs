@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     void FixedUpdate()
@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isMoving", false);
         }
 
-        if(Input.GetKey(KeyCode.Space) && readyToJump && isGrounded && GameManager.isTalking == false)
+        if (Input.GetKey(KeyCode.Space) && readyToJump && isGrounded && GameManager.isTalking == false)
         {
             readyToJump = false;
 
@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
-        if(Input.GetKey(KeyCode.X) && GameManager.isTalking == false)
+        if (Input.GetKey(KeyCode.X) && GameManager.isTalking == false)
         {
             StartCoroutine(AttackMotion());
         }
