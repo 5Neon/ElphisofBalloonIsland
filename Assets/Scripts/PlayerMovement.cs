@@ -39,15 +39,17 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        
+    }
+
+    void FixedUpdate()
+    {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, groundMask);
         horizontalMovement = Camera.main.transform.forward;
         horizontalMovement.y = 0;
         horizontalMovement = Vector3.Normalize(horizontalMovement);
         verticalMovement = Quaternion.Euler(new Vector3(0, 90, 0)) * horizontalMovement;
-    }
 
-    void FixedUpdate()
-    {
         if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow)) && GameManager.isTalking == false)
         {
             Move();
@@ -58,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isMoving", false);
         }
 
-        if(Input.GetKey(KeyCode.Space) && readyToJump && isGrounded)
+        if(Input.GetKey(KeyCode.Space) && readyToJump && isGrounded && GameManager.isTalking == false)
         {
             readyToJump = false;
 
@@ -67,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
-        if(Input.GetKey(KeyCode.X))
+        if(Input.GetKey(KeyCode.X) && GameManager.isTalking == false)
         {
             StartCoroutine(AttackMotion());
         }

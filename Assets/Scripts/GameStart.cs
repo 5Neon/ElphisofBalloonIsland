@@ -7,8 +7,10 @@ public class GameStart : MonoBehaviour
 {
     public GameObject GameStart_Ui;
     public Image Fade;
+    [Space(10)]
 
-    float fadeCount = 1.0f;     //초기화 알파갚 최대
+    private float fadeCount = 1.0f;         // 초기화, 알파갚 최대
+    public float fademultiflyer = 0.005f;   // Fade 감소량
 
     void Start()
     {
@@ -19,7 +21,7 @@ public class GameStart : MonoBehaviour
     {
         while (fadeCount > 0.0f)
         {
-            fadeCount -= 0.005f;
+            fadeCount -= fademultiflyer;
 
             yield return new WaitForSeconds(0.01f);         // 0.01초마다 실행
 

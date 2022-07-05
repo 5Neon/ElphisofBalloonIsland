@@ -8,17 +8,16 @@ public class MenuManager : MonoBehaviour
 
     void Update()
     {
-        //메뉴 
         if (Input.GetButtonDown("Cancel"))
         {
-            //메뉴 false
+            // 메뉴 Active false
             if (menu.activeSelf)
             {
                 // Debug.Log("시간 활성화");
                 Time.timeScale = 1.0f;
                 menu.SetActive(false);
             }
-            //메뉴 true
+            // 메뉴 Active true
             else
             {
                 // Debug.Log("시간 비활성화");
@@ -40,9 +39,9 @@ public class MenuManager : MonoBehaviour
         Debug.Log("다시하기 누름");
     }
 
+    // 게임 종료
     public void GameExit()
     {
-        // 게임 종료
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

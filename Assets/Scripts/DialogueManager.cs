@@ -11,7 +11,7 @@ public class DialogueManager : MonoBehaviour
     public GameObject event_Chapters;   // 판정 제거용
     public GameObject Butten;           // 비활성화 오브젝트
 
-    int wrong_butten = 0;       //잘못된 버튼 카운터
+    int wrong_button = 0;       //잘못된 버튼 카운터
     int Dialog_Content = 0;
     int Dialog_Name = 0;
 
@@ -147,11 +147,11 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void Wrong_Butten()
+    public void Wrong_Button()
     {
-        wrong_butten++;
+        wrong_button++;
 
-        if (wrong_butten == 1)
+        if (wrong_button == 1)
         {
             List<Dictionary<string, object>> data_Dialog = CSVReader.Read("Dialog");
 
@@ -165,11 +165,11 @@ public class DialogueManager : MonoBehaviour
 
             Text_Ui.SetActive(true);
 
-            StartCoroutine(worng_Butten());
+            StartCoroutine(worng_Button());
         }
     }
 
-    IEnumerator worng_Butten()
+    IEnumerator worng_Button()
     {
         List<Dictionary<string, object>> data_Dialog = CSVReader.Read("Dialog");
 
@@ -190,7 +190,7 @@ public class DialogueManager : MonoBehaviour
                     GameManager.isTalking = false;
                     Text_Ui.SetActive(false);
 
-                    wrong_butten = 0;
+                    wrong_button = 0;
 
                     yield break;
                 }
@@ -198,7 +198,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void Right_Butten()
+    public void Right_Button()
     {
         List<Dictionary<string, object>> data_Dialog = CSVReader.Read("Dialog");
 
@@ -212,10 +212,10 @@ public class DialogueManager : MonoBehaviour
 
         Text_Ui.SetActive(true);
 
-        StartCoroutine(right_Butten());
+        StartCoroutine(right_Button());
     }
 
-    IEnumerator right_Butten()
+    IEnumerator right_Button()
     {
         List<Dictionary<string, object>> data_Dialog = CSVReader.Read("Dialog");
 
