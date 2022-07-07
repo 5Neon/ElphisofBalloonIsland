@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
 {
     private Animator animator;
 
-
     [Header("Player Settings")]
     public float speed = 5f;
     public float rotateSpeed = 10f;
@@ -15,11 +14,9 @@ public class PlayerMovement : MonoBehaviour
     Vector3 horizontalMovement;
     Vector3 verticalMovement;
 
-
     [Header("Jump Setting")]
     public float jumpForce;
-    public float jumpCooldown;
-    bool readyToJump;
+    private bool readyToJump;
 
     Rigidbody rb;
 
@@ -28,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
     bool isGrounded;
 
+    private float waitTime = 1.2f;
 
     private void Awake()
     {
@@ -39,12 +37,18 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space) && readyToJump && isGrounded && GameManager.isTalking == false)
+        {
+            readyToJump = false;
+            StartCoroutine(JumpDelay());
+            Jump();
+        }
     }
 
     void FixedUpdate()
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, groundMask);
+
         horizontalMovement = Camera.main.transform.forward;
         horizontalMovement.y = 0;
         horizontalMovement = Vector3.Normalize(horizontalMovement);
@@ -60,18 +64,18 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isMoving", false);
         }
 
-        if (Input.GetKey(KeyCode.Space) && readyToJump && isGrounded && GameManager.isTalking == false)
+        if (!isGrounded)
         {
-            readyToJump = false;
-
-            Jump();
-
-            Invoke(nameof(ResetJump), jumpCooldown);
+            GameManager.isGround = false;
+            animator.SetBool("isGround", false);
         }
-
-        if (Input.GetKey(KeyCode.X) && GameManager.isTalking == false)
+        else
         {
-            StartCoroutine(AttackMotion());
+            GameManager.isJumped = false;
+            GameManager.isGround = true;
+
+            animator.SetBool("isJumping", false);
+            animator.SetBool("isGround", true);
         }
     }
 
@@ -93,25 +97,16 @@ public class PlayerMovement : MonoBehaviour
     {
         GameManager.isJumped = true;
         animator.SetBool("isJumping", true);
+        animator.SetBool("isGround", false);
 
         //rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
-    void ResetJump()
+    IEnumerator JumpDelay()
     {
-        GameManager.isJumped = false;
+        yield return new WaitForSeconds(waitTime);
+
         readyToJump = true;
-
-        animator.SetBool("isJumping", false);
-    }
-
-    IEnumerator AttackMotion()
-    {
-        animator.SetBool("isAttack", true);
-
-        yield return new WaitForSeconds(0.8f);
-
-        animator.SetBool("isAttack", false);
     }
 }
