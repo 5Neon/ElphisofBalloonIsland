@@ -27,6 +27,28 @@ public class PlayerMovement : MonoBehaviour
 
     private float waitTime = 1.2f;
 
+    // 점프맵 전용
+    [Header("Jump Map Settings")]
+    private float timeCounter = 0;
+    public float jumpMapSpeed = 0.4f;
+    public float jumpMap_jumpForce = 8f;
+    [HideInInspector]
+    public float jumpMapRadiusSize = 15f;
+
+    [HideInInspector]
+    Vector3 deployPoint;
+
+    // 열기구용
+    //[Header("AirBalloon")]
+    //public Transform AirBalloonTarget;
+    //RaycastHit hit;
+
+
+    private void Start()
+    {
+        transform.position = startPoint.position;     // 시작할 때 지정된 위치로 이동
+    }
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -76,6 +98,81 @@ public class PlayerMovement : MonoBehaviour
 
             animator.SetBool("isJumping", false);
             animator.SetBool("isGround", true);
+        }
+    }
+
+    void OnAirCheck()
+    {
+        RaycastHit check;
+
+        if (!Physics.Raycast(transform.position, Vector3.down, out check, 5f))
+        {
+            GameManager.onAir = true;
+            animator.SetBool("isFalling", true);
+            animator.SetFloat("FallBlend", 1f);
+        }
+        else
+        {
+            GameManager.onAir = false;
+
+            if (GameManager.isGround == true)
+            {
+                rb.drag = 0f;
+
+                animator.SetBool("isFalling", false);
+                animator.SetBool("isHanging", false);
+
+                if (clone != null)
+                {
+                    StartCoroutine(DestroyBalloon());
+                }
+            }
+            animator.SetFloat("FallBlend", 0f);
+        }
+    }
+
+    void IslandCheck()
+    {
+        RaycastHit Islandcheck;
+        if (Physics.Raycast(gameObject.transform.position, Vector3.down, out Islandcheck, Mathf.Infinity))
+        {
+            if (Islandcheck.collider.tag == "Island")
+            {
+                // 떨어지는 위치
+                deployPoint = Islandcheck.collider.transform.Find("RedeployPoint").gameObject.transform.position;
+
+                switch (Islandcheck.collider.name)
+                {
+                    default:
+                        GameManager.state = GameManager.Island.Air;
+                        break;
+                    case "FirstIsland":
+                        GameManager.state = GameManager.Island.FirstWorld;
+                        break;
+                    case "Puzzle_Maze_Island":
+                        GameManager.state = GameManager.Island.Puzzle_Maze;
+                        break;
+                    case "Puzzle_Jump_Island":
+                        GameManager.state = GameManager.Island.Puzzle_Jump;
+                        break;
+                    case "Story_Island-1":
+                    case "Story_Island-2":
+                        GameManager.state = GameManager.Island.Story;
+                        break;
+                    case "Ending_Island":
+                        GameManager.state = GameManager.Island.Ending;
+                        break;
+                }
+            }
+            else
+            {
+                GameManager.state = GameManager.Island.Air;
+            }
+
+            if (Islandcheck.collider.name == "rainbow")
+            {
+                GameManager.state = GameManager.Island.Ending;
+            }
         }
     }
 

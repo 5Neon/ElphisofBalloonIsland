@@ -17,7 +17,6 @@ public class TextManager : MonoBehaviour
     {
 
     }
-
     public IEnumerator Stop_Dialogue() //다이얼로그 멈춤
     {
         yield return null;
@@ -28,8 +27,11 @@ public class TextManager : MonoBehaviour
 
     public IEnumerator Dialogue_Inout(int Content, int Name) // 다이얼로그 인_아웃 대화 스크립트
     {
-        List<Dictionary<string, object>> data_Dialog = CSVReader.Read("Dialog");
-        Text_Ui.SetActive(true);
+        if (!Delay_Text)
+        {
+            gamemanager.All_UI_Stop();
+            List<Dictionary<string, object>> data_Dialog = CSVReader.Read("Dialog");
+            Text_Ui.SetActive(true);
 
         CharacterName.text = data_Dialog[Content]["Name"].ToString();
         StartCoroutine(Typing(text, data_Dialog[Name]["Content"].ToString()));
@@ -53,11 +55,13 @@ public class TextManager : MonoBehaviour
 
     public IEnumerator Dialogue(int Content, int Name, int FinerContent) // 다이얼로그 대화 스크립트
     {
-        List<Dictionary<string, object>> data_Dialog = CSVReader.Read("Dialog");
-        Text_Ui.SetActive(true);
+        if (!Delay_Text)
+        {
+            List<Dictionary<string, object>> data_Dialog = CSVReader.Read("Dialog");
+            Text_Ui.SetActive(true);
 
-        CharacterName.text = data_Dialog[Name]["Name"].ToString();
-        StartCoroutine(Typing(text, data_Dialog[Content]["Content"].ToString()));
+            CharacterName.text = data_Dialog[Name]["Name"].ToString();
+            StartCoroutine(Typing(text, data_Dialog[Content]["Content"].ToString()));
 
         while (true)
         {
@@ -68,8 +72,8 @@ public class TextManager : MonoBehaviour
                 Content++;
                 Name++;
 
-                CharacterName.text = data_Dialog[Name]["Name"].ToString();
-                StartCoroutine(Typing(text, data_Dialog[Content]["Content"].ToString()));
+                    CharacterName.text = data_Dialog[Name]["Name"].ToString();
+                    StartCoroutine(Typing(text, data_Dialog[Content]["Content"].ToString()));
 
                 if (Content == FinerContent + 1 || Input.GetKeyDown(KeyCode.Z) && Input.GetMouseButtonDown(0))
                 {
