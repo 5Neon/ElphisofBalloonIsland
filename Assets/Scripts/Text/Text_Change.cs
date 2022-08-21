@@ -24,15 +24,12 @@ public class Text_Change : MonoBehaviour
         Roop = false;
         Talking_End_bool = false;
         Change_object();
-        
     }
 
     public void OnTriggerExit(Collider other)
     {
         Change_object();
     }
-
-
 
     public void Change_object()      // 바꿔치기 함수
     {
@@ -51,7 +48,7 @@ public class Text_Change : MonoBehaviour
             if (Roop_int == Talking)
             {
                 Roop_Talking = true;
-                Debug.Log("루프 활성화");
+                //Debug.Log("루프 활성화");
             }
         }
 
@@ -66,6 +63,5 @@ public class Text_Change : MonoBehaviour
         {
             Talking_End_bool = true;
         }
-
     }
 }

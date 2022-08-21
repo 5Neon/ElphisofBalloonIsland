@@ -9,6 +9,8 @@ public class Fade_In : MonoBehaviour
 
     public GameObject Start_Content_Trigger;
 
+    public AudioSource Audio;
+
     public bool[] Fade_in;
 
     public int Talk_int;
@@ -21,7 +23,7 @@ public class Fade_In : MonoBehaviour
     public bool start;
 
 
-    float fadeCount = 1.0f;     //초기화 알파갚 최대
+    float fadeCount = 1.0f;     //?????? ?????? ????
     int Content_V = 0;
 
     TextManager gamemanager;
@@ -46,7 +48,8 @@ public class Fade_In : MonoBehaviour
                 {
                     if (start)
                     {
-                        SceneManager.LoadScene(1);
+                        StartCoroutine(Sound_Fade());
+                        //SceneManager.LoadScene(2);
                         yield break;
                     }
                     if (!start)
@@ -60,11 +63,11 @@ public class Fade_In : MonoBehaviour
                 }
             }
 
-            Debug.Log(UI_Conte);
+            //Debug.Log(UI_Conte);
             if (UI_Conte == Talk_int)
             {
-                gamemanager = textmanager.GetComponent<TextManager>(); //참조를 위한 재선헌
-                StartCoroutine(gamemanager.Dialogue(Content, Name, FinerContent)); //코루틴 시작 함수
+                gamemanager = textmanager.GetComponent<TextManager>(); //?????? ???? ??????
+                StartCoroutine(gamemanager.Dialogue(Content, Name, FinerContent)); //?????? ???? ????
                 while (true)
                 {
                     yield return null;
@@ -73,7 +76,7 @@ public class Fade_In : MonoBehaviour
                     {
                         Content_V++;
                     }
-                    Debug.Log(Content_V);
+                    //Debug.Log(Content_V);
                     if (Content_V == FinerContent + 1)
                     {
                         Content_V = 0;
@@ -90,16 +93,30 @@ public class Fade_In : MonoBehaviour
 
     }
 
+    IEnumerator Sound_Fade()
+    {
+        while (true)
+        {
+            Audio.volume -= Time.deltaTime * 0.4f;
+            yield return null;
+            if (Audio.volume < 0.1)
+            {
+                SceneManager.LoadScene(2);
+                yield break;
+            }
+        }
+    }
+
     IEnumerator FadeCoroutine(int UI_Conte)
     {
         if (Fade_in[UI_Conte])
         {
-            Debug.Log("흰색");
+            //Debug.Log("????");
             fadeCount = 1.0f;
             while (fadeCount > 0.0f)
             {
                 fadeCount -= 0.01f;
-                yield return new WaitForSeconds(0.01f);     //0.01초마다 실행
+                yield return new WaitForSeconds(0.01f);     //0.01?????? ????
 
                 Fade[UI_Conte].color = new Color(255, 255, 255, fadeCount);
                 if (fadeCount < 0.0f)
@@ -110,12 +127,12 @@ public class Fade_In : MonoBehaviour
         }
         if (!Fade_in[UI_Conte])
         {
-            Debug.Log("검은색");
+            //Debug.Log("??????");
             fadeCount = 1f;
             while (fadeCount > 0.0f)
             {
                 fadeCount -= 0.01f;
-                yield return new WaitForSeconds(0.01f);     //0.01초마다 실행
+                yield return new WaitForSeconds(0.01f);     //0.01?????? ????
 
                 Fade[UI_Conte].color = new Color(0, 0, 0, fadeCount);
                 if (fadeCount < 0.0f)

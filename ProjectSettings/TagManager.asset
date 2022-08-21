@@ -5,7 +5,16 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Button
+  - Island
+  - DeployPoint
+  - Balloon
+  - PortArea
   - Butten
+  - AirBalloon
+  - AirBalloonTarget
+  - Target
+  - DummyPlayer
   layers:
   - Default
   - TransparentFX

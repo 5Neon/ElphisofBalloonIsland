@@ -5,24 +5,24 @@ using UnityEngine;
 public class Clouds : MonoBehaviour
 {
     public GameObject[] CloudPrefabs;
-    public Transform targetPosition;
-    public Transform cloudAttachPosition;
+    public Transform playerPosition;
+    public Transform CloudAttachPosition;
 
     float randomPositionX;
     float randomPositionY;
     float randomPositionZ;
 
-    private void Start()
+    void Start()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 2; i++)
         {
             for (int j = 0; j < 20; j++)
             {
                 randomPositionX = Random.Range(-100f, 100f);
-                randomPositionY = Random.Range(-60f, -40f);
+                randomPositionY = Random.Range(-40f, -20f);
                 randomPositionZ = Random.Range(-100f, 100f);
 
-                Instantiate(CloudPrefabs[j], cloudAttachPosition.transform.position + new Vector3(randomPositionX, randomPositionY, randomPositionZ), CloudPrefabs[j].transform.rotation * Quaternion.Euler(/*Random.Range(-90f, 90f)*/transform.rotation.x, Random.Range(-90f, 90f), transform.rotation.x /*Random.Range(-90f, 90f)*/), cloudAttachPosition.transform);
+                Instantiate(CloudPrefabs[j], CloudAttachPosition.transform.position + new Vector3(randomPositionX, randomPositionY, randomPositionZ), CloudPrefabs[i].transform.rotation * Quaternion.Euler(transform.rotation.x, Random.Range(-90f, 90f), transform.rotation.z), CloudAttachPosition.transform);
             }
         }
     }

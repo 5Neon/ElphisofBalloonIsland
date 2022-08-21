@@ -16,6 +16,8 @@ public class Character_UI : MonoBehaviour
 
     public GameObject[] Demos;
 
+    public GameObject[] Megas;
+
     public GameObject[] Gerffa;
 
     public GameObject[] Oikos;
@@ -89,6 +91,20 @@ public class Character_UI : MonoBehaviour
         if (charater == "pilia_Panic")
         {
             Plila[6].SetActive(true);
+        }
+
+
+        if (charater == "Megas_nomal")  // Пе
+        {
+            Megas[0].SetActive(true);
+        }
+        if (charater == "Megas_happy")
+        {
+            Megas[1].SetActive(true);
+        }
+        if (charater == "Megas_Sad")
+        {
+            Megas[2].SetActive(true);
         }
 
 

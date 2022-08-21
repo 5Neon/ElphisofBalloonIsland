@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class CloudRotator : MonoBehaviour
 {
-    public float rotateSpeed = 0.001f;
+    public Transform targetPosition;
+    public float rotateSpeed = 0.005f;
 
-    void Update()
+    void FixedUpdate()
     {
         transform.Rotate(Vector3.up * rotateSpeed);
     }

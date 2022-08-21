@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Text_Button : MonoBehaviour
 {
-    public GameObject textmanager; // 텍스트 매니저 
-    public GameObject player; // 플레이어 옮기는 용도
+    public GameObject star_Key;
+    public GameObject textmanager;  // 텍스트 매니저 
+    public GameObject player;       // 플레이어 옮기는 용도
 
-    public int Dialog_Content; // 내부 대화 내용
-    public int Dialog_Name; // 내부 인물 이름
+    public int Dialog_Content;      // 내부 대화 내용
+    public int Dialog_Name;         // 내부 인물 이름
     public int Dialog_FinerContent; // 마지막 페이지
 
-    public bool Button_Actvie;
-    public bool O; //정답 버튼
-    public bool button_O = true;
+    [HideInInspector] public bool Button_Actvie;
+    public bool O;                  //정답 버튼
     
 
     
@@ -25,10 +25,6 @@ public class Text_Button : MonoBehaviour
         {
             StartCoroutine(buttenManager());
             GameManager.isTalking = true;
-            if (!button_O)
-            {
-                GameManager.isTalking = false;
-            }
         }
     }
     IEnumerator buttenManager()
@@ -67,17 +63,17 @@ public class Text_Button : MonoBehaviour
         }
         if (O)
         {
-            while (button_O)
+            while (true)
             {
+                GameManager.isTalking = true;
                 yield return null;
                 transform.position += down;
                 temp += i;
 
                 if (temp > 0.2f)
                 {
-                    gamemanager = textmanager.GetComponent<TextManager>();                                      //참조를 위한 재선헌
-                    StartCoroutine(gamemanager.Dialogue(Dialog_Name, Dialog_Content, Dialog_FinerContent));     //코루틴 시작 함수
-                    button_O = false;
+                    star_Key.GetComponent<StarAni>().Star_Get(Dialog_Content, Dialog_FinerContent);
+                    GameManager.isTalking = true;
                     Button_Actvie = false;
                     yield break;
                 }

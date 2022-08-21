@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
     public GameObject menu;
+
 
     void Update()
     {
@@ -37,8 +39,10 @@ public class MenuManager : MonoBehaviour
 
     public void Retry()
     {
-        Debug.Log("다시하기 누름");
+        SceneManager.LoadScene(1);
+        Time.timeScale = 1.0f;
     }
+   
 
     public void GameExit()
     {
